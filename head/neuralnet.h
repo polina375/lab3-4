@@ -2,8 +2,8 @@
 #include <vector>
 #include <string>
 #include <fstream>
-#include "types.h"
-#include "console.h"
+#include "head/types.h"
+#include "head/console.h"
 
 namespace Neural {
 

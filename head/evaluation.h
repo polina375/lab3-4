@@ -1,11 +1,11 @@
 #pragma once
 #include <vector>
-#include "types.h"
-#include "linear.h"
+#include "head/types.h"
+#include "head/linear.h"
 
 namespace Evaluation {
 
-    // Точность линейной модели (y = kx + b)
+    // РўРѕС‡РЅРѕСЃС‚СЊ Р»РёРЅРµР№РЅРѕР№ РјРѕРґРµР»Рё (y = kx + b)
     static float accuracyLinear(const std::vector<Point2D>& data, float k, float b) {
         int correct = 0;
         for (const auto& p : data) {

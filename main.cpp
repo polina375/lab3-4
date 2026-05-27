@@ -1,56 +1,56 @@
-#include "console.h"
-#include "neuralnet.h"
-#include "trainer.h"
+#include "head/console.h"
+#include "head/neuralnet.h"
+#include "head/trainer.h"
 #include <vector>
 #include <cstdlib>
 #include <ctime>
 
 int main()
 {
-    srand(42);   // фиксируем случайность, чтобы результаты повторялись
+    srand(42);   // С„РёРєСЃРёСЂСѓРµРј СЃР»СѓС‡Р°Р№РЅРѕСЃС‚СЊ, С‡С‚РѕР±С‹ СЂРµР·СѓР»СЊС‚Р°С‚С‹ РїРѕРІС‚РѕСЂСЏР»РёСЃСЊ
     Console::info("Laboratory Work 3-4: Neural Network");
 
-    // ====================== Тестовые данные ======================
+    //  РўРµСЃС‚РѕРІС‹Рµ РґР°РЅРЅС‹Рµ
     std::vector<std::vector<float>> X = {
         {0.1f, 0.2f}, {0.2f, 0.1f}, {0.15f, 0.3f}, {0.3f, 0.2f},
         {0.8f, 0.9f}, {0.9f, 0.8f}, {0.75f, 0.95f}, {0.95f, 0.75f}
     };
     std::vector<float> y = { 0, 0, 0, 0, 1, 1, 1, 1 };
 
-    Console::value("Количество примеров", (float)X.size());
+    Console::value("РљРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРёРјРµСЂРѕРІ", (float)X.size());
 
-    // ====================== Создаём сеть ======================
-    Console::info("Создание нейронной сети...");
-    Neural::NeuralNetwork<float> net(2, 8);   // 2 признака, 8 нейронов в скрытом слое
+    //  РЎРѕР·РґР°С‘Рј СЃРµС‚СЊ 
+    Console::info("РЎРѕР·РґР°РЅРёРµ РЅРµР№СЂРѕРЅРЅРѕР№ СЃРµС‚Рё...");
+    Neural::NeuralNetwork<float> net(2, 8);   // 2 РїСЂРёР·РЅР°РєР°, 8 РЅРµР№СЂРѕРЅРѕРІ РІ СЃРєСЂС‹С‚РѕРј СЃР»РѕРµ
 
-    // ====================== Обучение ======================
-    Console::info("Обучение сети...");
+    //  РћР±СѓС‡РµРЅРёРµ 
+    Console::info("РћР±СѓС‡РµРЅРёРµ СЃРµС‚Рё...");
     Neural::Trainer::train(net, X, y, 500, 0.1f);
 
-    // ====================== Проверка ======================
-    Console::info("Тестирование предсказаний...");
+    //  РџСЂРѕРІРµСЂРєР° 
+    Console::info("РўРµСЃС‚РёСЂРѕРІР°РЅРёРµ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№...");
 
     std::vector<float> sample1 = { 0.1f, 0.15f };
     std::vector<float> sample2 = { 0.95f, 0.9f };
 
-    Console::value("Предсказание sample1", net.predictClass(sample1));
-    Console::value("Предсказание sample2", net.predictClass(sample2));
+    Console::value("РџСЂРµРґСЃРєР°Р·Р°РЅРёРµ sample1", net.predictClass(sample1));
+    Console::value("РџСЂРµРґСЃРєР°Р·Р°РЅРёРµ sample2", net.predictClass(sample2));
 
-    // ====================== Сохранение и загрузка ======================
-    Console::info("Сохранение модели...");
+    //  РЎРѕС…СЂР°РЅРµРЅРёРµ Рё Р·Р°РіСЂСѓР·РєР°
+    Console::info("РЎРѕС…СЂР°РЅРµРЅРёРµ РјРѕРґРµР»Рё...");
     net.save("model.bin");
 
-    Console::info("Загрузка модели...");
-    Neural::NeuralNetwork<float> loaded(2, 8);   // важно указать те же размеры!
+    Console::info("Р—Р°РіСЂСѓР·РєР° РјРѕРґРµР»Рё...");
+    Neural::NeuralNetwork<float> loaded(2, 8);   // РІР°Р¶РЅРѕ СѓРєР°Р·Р°С‚СЊ С‚Рµ Р¶Рµ СЂР°Р·РјРµСЂС‹!
 
     if (loaded.load("model.bin")) {
-        Console::info("Модель успешно загружена");
-        Console::value("Предсказание загруженной модели", loaded.predictClass(sample2));
+        Console::info("РњРѕРґРµР»СЊ СѓСЃРїРµС€РЅРѕ Р·Р°РіСЂСѓР¶РµРЅР°");
+        Console::value("РџСЂРµРґСЃРєР°Р·Р°РЅРёРµ Р·Р°РіСЂСѓР¶РµРЅРЅРѕР№ РјРѕРґРµР»Рё", loaded.predictClass(sample2));
     }
     else {
-        Console::info("Ошибка загрузки модели");
+        Console::info("РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё РјРѕРґРµР»Рё");
     }
 
-    Console::info("Программа завершена успешно!");
+    Console::info("РџСЂРѕРіСЂР°РјРјР° Р·Р°РІРµСЂС€РµРЅР° СѓСЃРїРµС€РЅРѕ!");
     return 0;
 }

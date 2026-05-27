@@ -1,6 +1,6 @@
 #pragma once
-#include "neuralnet.h"
-#include "console.h"
+#include "head/neuralnet.h"
+#include "head/console.h"
 #include <vector>
 
 namespace Neural {

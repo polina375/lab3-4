@@ -3,12 +3,12 @@
 #include <fstream>
 #include <random>
 #include <algorithm>
-#include "types.h"
-#include "console.h"   // если используешь Console
+#include "head/types.h"
+#include "head/console.h" 
 
 namespace Dataset {
 
-    // Генерация синтетического датасета (для тестов)
+    // Генерация синтетического датасета
     template<typename T>
     static std::vector<Point2D> generate(int n, T k, T b) {
         std::vector<Point2D> data;

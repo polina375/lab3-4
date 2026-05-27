@@ -2,16 +2,15 @@
 #include <vector>
 #include <type_traits>
 
-// Концепт для арифметических типов (int, float, double и т.д.)
-template<typename T>
+// РљРѕРЅС†РµРїС‚ РґР»СЏ Р°СЂРёС„РјРµС‚РёС‡РµСЃРєРёС… С‚РёРїРѕРІ (int, float, double Рё С‚.Рґ.)
 concept Arithmetic = std::is_arithmetic_v<T>;
 
-// Основная структура точки (оставляем для совместимости со старым кодом)
+// РћСЃРЅРѕРІРЅР°СЏ СЃС‚СЂСѓРєС‚СѓСЂР° С‚РѕС‡РєРё ( РґР»СЏ СЃРѕРІРјРµСЃС‚РёРјРѕСЃС‚Рё СЃРѕ СЃС‚Р°СЂС‹Рј РєРѕРґРѕРј)
 struct Point2D {
     float x;
     float y;
     float label;
 };
 
-// Полезный using для удобства
+// РџРѕР»РµР·РЅС‹Р№ using РґР»СЏ СѓРґРѕР±СЃС‚РІР°
 using Features = std::vector<float>;

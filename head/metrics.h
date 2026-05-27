@@ -3,13 +3,13 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
-#include "neuralnet.h"
-#include "console.h"
-#include "types.h"   // если всё ещё используешь Point2D где-то
+#include "head/neuralnet.h"
+#include "head/console.h"
+#include "head/types.h"   
 
 namespace Metrics {
 
-    // Структура метрик (оставил как было)
+    // РЎС‚СЂСѓРєС‚СѓСЂР° РјРµС‚СЂРёРє 
     struct ClassificationMetrics {
         float accuracy = 0.0f;
         float precision = 0.0f;
@@ -17,9 +17,7 @@ namespace Metrics {
         float f1 = 0.0f;
     };
 
-    // ===============================================
-    // 1. Вычисление метрик (обновлённая версия)
-    // ===============================================
+    // 1. Р’С‹С‡РёСЃР»РµРЅРёРµ РјРµС‚СЂРёРє 
     ClassificationMetrics evaluate(Neural::NeuralNetwork<float>& net,
         const std::vector<std::vector<float>>& features,
         const std::vector<float>& labels)
@@ -45,9 +43,9 @@ namespace Metrics {
         return { accuracy, precision, recall, f1 };
     }
 
-    // ===============================================
-    // 2. Сохранение предсказаний в CSV
-    // ===============================================
+   
+        // 2. РЎРѕС…СЂР°РЅРµРЅРёРµ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РІ CSV
+
     bool savePredictions(Neural::NeuralNetwork<float>& net,
         const std::vector<std::vector<float>>& features,
         const std::vector<float>& labels,
@@ -59,12 +57,12 @@ namespace Metrics {
             return false;
         }
 
-        file << "feature1,feature2,true_label,pred_label,probability\n";  // можно расширить позже
+        file << "feature1,feature2,true_label,pred_label,probability\n";  
 
         for (size_t i = 0; i < features.size(); ++i) {
             float prob = net.forward(features[i]);
             int pred = net.predictClass(features[i]);
-            file << features[i][0] << "," << features[i][1] << ","   // сейчас для 2 признаков
+            file << features[i][0] << "," << features[i][1] << ","    // СЃРµР№С‡Р°СЃ РґР»СЏ 2 РїСЂРёР·РЅР°РєРѕРІ
                 << static_cast<int>(labels[i]) << ","
                 << pred << "," << prob << "\n";
         }
@@ -74,9 +72,8 @@ namespace Metrics {
         return true;
     }
 
-    // ===============================================
-    // 3. Вывод Confusion Matrix
-    // ===============================================
+   // 3. Р’С‹РІРѕРґ Confusion Matrix
+
     void printConfusionMatrix(Neural::NeuralNetwork<float>& net,
         const std::vector<std::vector<float>>& features,
         const std::vector<float>& labels)
